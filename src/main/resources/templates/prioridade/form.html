@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout}">
+<head>
+    <meta charset="UTF-8">
+    <title>Cadastro Prioridade</title>
+</head>
+<body>
+
+    <div layout:fragment="corpo">
+
+        <h2>Cadastro prioridade</h2>
+
+        <div class="alert alert-success" th:if="${msg !=null}" th:text="${msg}"></div>
+
+        <form th:action="@{/prioridade/cadastrar}" th:object="${prioridade}" method="post">
+            <input th:field="*{codigo}" type="hidden">
+
+            <div class="alert alert-danger" th:if="${#fields.hasErrors('*')}">
+                <p th:each="erro:${#fields.errors('*')}" th:text="${erro}"></p>
+            </div>
+
+            <div class="form-group">
+                <label>Nome:</label>
+                <input th:field="*{nome}" type="text" class="form-control">
+                <p th:errors="*{nome}" class="text text-danger"></p>
+            </div>
+            <div class="form-group">
+                <label>Nível:</label>
+                <input th:field="*{nivel}" type="text" class="form-control">
+                <p th:errors="*{nivel}" class="text text-danger"></p>
+            </div>
+            <div class="form-group">
+                <label>Descrição:</label>
+                <input th:field="*{descricao}" type="text" class="form-control">
+                <p th:errors="*{descricao}" class="text text-danger"></p>
+            </div>
+            <input type="submit" value="Cadastrar" class="btn btn-success">
+
+            <!-- Lista de Chamados-->
+
+        </form>
+
+
+
+    </div>
+</body>
+</html>
