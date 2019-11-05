@@ -7,8 +7,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 @Entity
@@ -19,16 +17,13 @@ public class Chamado {
     @GeneratedValue(generator = "chamado", strategy = GenerationType.SEQUENCE)
     private int codigo;
 
-    @NotBlank
     @Size(max = 50)
     private String titulo;
 
-    @NotNull
     private LocalDate data;
 
     private boolean finalizado;
 
-    @NotBlank
     private String descricao;
 
     @ManyToOne

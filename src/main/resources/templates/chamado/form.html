@@ -10,7 +10,51 @@
 
     <div layout:fragment="corpo">
 
+        <h2>Cadastro de Chamado</h2>
 
+        <div class="alert alert-success" th:if="${msg !=null}" th:text="${msg}"></div>
+
+        <form th:action="@{/chamado/cadastrar}" th:object="${chamado}" method="post">
+
+            <div class="alert alert-danger" th:if="${#fields.hasErrors('*')}">
+                <p th:each="erro : ${#fields.errors('*')}" th:text="${erro}"></p>
+            </div>
+
+            <div class="form-group">
+                <label>Título</label>
+                <input th:field="*{titulo}" type="text" class="form-control">
+                <p class="text text-danger" th:errors="*{titulo}"></p>
+            </div>
+
+            <div class="form-group">
+                <label>Data</label>
+                <input th:field="*{data}" type="text" class="form-control">
+                <p class="text text-danger" th:errors="*{data}"></p>
+            </div>
+
+            <div class="form-group">
+                <label>Finalizado?</label>
+                <input th:field="*{finalizado}" type="checkbox">
+
+            </div>
+
+            <div class="form-group">
+                <label>Descrição</label>
+                <input th:field="*{descricao}" type="text" class="form-control">
+                <p  class="text text-danger" th:errors="*{descricao}"></p>
+            </div>
+
+            <div class="form-group">
+                <label>Prioridades</label>
+                <select th:field="*{prioridade}" id="categoria" class="form-control">
+                    <option value="">Selecione</option>
+                    <option th:each="prio:${prioridades}" th:value="${prio.codigo}" th:text="${prio.descricao}"></option>
+                </select>
+            </div>
+
+            <input type="submit" value="Cadastrar"class="btn btn-success">
+
+        </form>
     </div>
 
 </body>

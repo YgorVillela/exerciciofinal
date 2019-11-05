@@ -1,10 +1,72 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout}">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Lista</title>
 </head>
 <body>
+    <div layout:fragment="corpo">
 
+        <div th:text="${msg}" class="alert alert-success" th:if="${msg}"></div>
+
+        <form method="get" th:action="@{/chamado/buscar}" class="form-inline mb-2">
+            <select name="buscaPorPrioridade" class="form-control">
+                <option value="0">Selecione</option>
+                <option th:each="prio:${prioridades}" th:text="${prio.nome}" th:value="${prio.codigo}"></option>
+            </select>
+        <input type="submit" value="Pesquisar" class="btn btn-success mb-2">
+        </form>
+
+        <table class="table table-striped">
+            <tr>
+                <th>Título</th>
+                <th>Data</th>
+                <th>Finalizado</th>
+                <th>Descrição</th>
+                <th></th>
+            </tr>
+            <tr th:each="cham:${chamados}">
+                <td th:text="${cham.titulo}"></td>
+                <td th:text="${#temporals.format(cham.data,'dd/MM/yyyy')}"></td>
+                <td th:text="${cham.finalizado?'Sim':'Não'}"></td>
+                <td th:text="${cham.descricao}"></td>
+                <td>
+                <!-- Botão para acionar modal -->
+                <button th:onclick="|codigo.value = ${cham.codigo}|" type="button" class="btn btn-danger" data-toggle="modal" data-target="#modalExemplo">
+                    Excluir
+                </button>
+                </td>
+            </tr>
+        </table>
+
+        <!-- Modal -->
+        <div class="modal fade" id="modalExemplo" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Confirmação</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Fechar">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        Deseja realmente excluir?
+                    </div>
+                    <div class="modal-footer">
+                        <form th:action="@{/chamado/excluir}" method="post">
+                            <input type="hidden" name="codigo" id="codigo">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Não</button>
+                            <button type="submit" class="btn btn-danger">Sim</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+
+    </div>
 </body>
 </html>

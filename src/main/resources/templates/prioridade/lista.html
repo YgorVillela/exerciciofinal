@@ -10,6 +10,11 @@
 
     <div layout:fragment="corpo">
 
+        <form method="get" th:action="@{/prioridade/buscar}" class="form-inline mb-2">
+            <input name="buscaPorNivel" class="form-control" placeholder="Digite o nível">
+            <input type="submit" value="Pesquisar" class="btn btn-success mb-2">
+        </form>
+
         <table class="table table-striped">
             <tr>
                 <th>Nome</th>
@@ -45,10 +50,10 @@
                         </button>
                     </div>
                     <div class="modal-body">
-                        Deseja realmente excluir a prioridade?
+                        Deseja realmente excluir?
                     </div>
                     <div class="modal-footer">
-                        <form th:action="@{/prioridade/remover}" method="post">
+                        <form th:action="@{/prioridade/excluir}" method="post">
                             <input type="hidden" name="codigo" id="codigo">
                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Não</button>
                             <button type="submit" class="btn btn-danger">Sim</button>

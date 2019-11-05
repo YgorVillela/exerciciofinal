@@ -1,7 +1,6 @@
 package br.com.fiap.exerciciofinal.controller;
 
 import br.com.fiap.exerciciofinal.model.Prioridade;
-import br.com.fiap.exerciciofinal.repository.ChamadoRepository;
 import br.com.fiap.exerciciofinal.repository.PrioridadeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -24,6 +23,7 @@ public class PrioridadeController {
 
     @GetMapping("cadastrar")
     public String cadastrar(Prioridade prioridade){
+
         return "prioridade/form";
     }
     //------------------Cadastrando--------------------------------
@@ -60,8 +60,9 @@ public class PrioridadeController {
     //-----------Excluir--------------
     @PostMapping("excluir")
     public String excluir(RedirectAttributes redirectAttributes, int codigo){
-        redirectAttributes.addFlashAttribute("msg", "Excluído!");
         rep.deleteById(codigo);
+        redirectAttributes.addFlashAttribute("msg", "Excluído!");
         return "redirect:/prioridade/listar";
     }
+
 }
